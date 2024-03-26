@@ -4,8 +4,10 @@ def is_group_word(word):
         chr = ord(word[i]) - ord("a")
         if not checked[chr]:
             checked[chr] = True
-        elif checked[chr] and word[i - 1] != word[i]:
-                return False
+            continue
+        
+        if word[i - 1] != word[i]:
+            return False
     return True
 
 t = int(input())
