@@ -34,7 +34,6 @@ for row in range(n):
             for col_diff in range(m):
                 nums += get_num(row, col, row_diff, col_diff, mat, n, m)
                 nums += get_num(row, col, -row_diff, col_diff, mat, n, m)
-                nums += get_num(row, col, row_diff, -col_diff, mat, n, m)
 
 answer = -1
 for num in nums:
