@@ -12,7 +12,7 @@ struct cmp{
     } 
 };
 
-void search(int start, int n, vector<int>& types, vector<int> summits, vector<vector<vector<int>>>& costs, vector<int>& answer){
+void search(int start, int n, vector<int>& types, vector<vector<vector<int>>>& costs, vector<int>& answer){
     // Dijkstra
     vector<int> intensities(n + 1, INT_MAX);
     intensities[start] = 0;
@@ -63,7 +63,7 @@ vector<int> solution(int n, vector<vector<int>> paths, vector<int> gates, vector
     
     // 모든 출발지점으로부터 계산
     for(int gate : gates){
-        search(gate, n, types, summits, costs, answer);
+        search(gate, n, types, costs, answer);
     }
     
     return answer;
