@@ -1,6 +1,6 @@
 # [level 3] 등산코스 정하기 - 118669 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/118669?language=cpp) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/118669?language=python3) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 04월 09일 16:55:31
+2024년 04월 09일 17:49:40
 
 ### 문제 설명
 
