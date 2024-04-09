@@ -9,7 +9,7 @@ def search(start, n, types, costs, answer):
     while hq:
         now_intensity, now_idx = heapq.heappop(hq)
         
-        # intensity가 가장 낮은 산봉오리에 도달하면 answer 확인 후 return
+        # intensity가 가장 낮은 산봉우리에 도달하면 answer 확인 후 return
         if types[now_idx] == 2:
             if now_intensity < answer[1] or (now_intensity == answer[1] and now_idx < answer[0]):
                 answer[0] = now_idx
