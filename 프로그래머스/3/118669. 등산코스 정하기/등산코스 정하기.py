@@ -1,16 +1,13 @@
-import math
 import heapq
 
 def search(start, n, types, costs, answer):
     # Dijkstra
-    intensities = [math.inf for i in range(n + 1)]
+    intensities = [10_000_001] * (n + 1)
     intensities[start] = 0
-    hq = [[0, start]] # [intensity, idx]
+    hq = [(0, start)] # (intensity, idx)
     
     while hq:
-        now = heapq.heappop(hq)
-        now_idx = now[1]
-        now_intensity = now[0]
+        now_intensity, now_idx = heapq.heappop(hq)
         
         # intensity가 가장 낮은 산봉오리에 도달하면 answer 확인 후 return
         if types[now_idx] == 2:
@@ -31,12 +28,12 @@ def search(start, n, types, costs, answer):
             
             if next_intensity < intensities[next_idx]:
                 intensities[next_idx] = next_intensity
-                heapq.heappush(hq, [next_intensity, next_idx])
+                heapq.heappush(hq, (next_intensity, next_idx))
 
 def solution(n, paths, gates, summits):
-    answer = [-1, math.inf]
+    answer = [-1, 10_000_001]
     
-    types = [0 for i in range(n + 1)] # 0: 쉼터, 1: 출입구, 2: 산봉우리
+    types = [0] * (n + 1) # 0: 쉼터, 1: 출입구, 2: 산봉우리
     for gate in gates:
         types[gate] = 1
     for summit in summits:
