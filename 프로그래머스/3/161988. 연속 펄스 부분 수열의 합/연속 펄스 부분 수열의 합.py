@@ -11,15 +11,12 @@ def max_sum(arr):
 
 def solution(sequence):
     seq1 = copy.deepcopy(sequence)
-    idx = 0
-    while idx < len(seq1):
-        seq1[idx] *= -1
-        idx += 2
-    
     seq2 = copy.deepcopy(sequence)
-    idx = 1
-    while idx < len(seq2):
-        seq2[idx] *= -1
-        idx += 2
+    
+    for i in range(len(sequence)):
+        if i % 2 == 0:
+            seq1[i] *= -1
+        else:
+            seq2[i] *= -1
     
     return max(max_sum(seq1), max_sum(seq2))
