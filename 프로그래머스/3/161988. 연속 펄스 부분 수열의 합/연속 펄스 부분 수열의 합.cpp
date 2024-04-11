@@ -3,13 +3,13 @@
 using namespace std;
 
 long long max_sum(vector<int>& arr){
-    vector<long long> now_sum(arr.size(), 0ll);
-    now_sum[0] = arr[0];
+    vector<long long> now_max(arr.size(), 0ll);
+    now_max[0] = arr[0];
     long long result = arr[0];
     
     for(int i = 1; i < arr.size(); i++){
-        now_sum[i] = max(0ll, now_sum[i - 1]) + arr[i];
-        result = max(result, now_sum[i]);
+        now_max[i] = max(0ll, now_max[i - 1]) + arr[i];
+        result = max(result, now_max[i]);
     }
     
     return result;
