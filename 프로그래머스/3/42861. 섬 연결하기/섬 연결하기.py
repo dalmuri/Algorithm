@@ -1,23 +1,23 @@
 def get_root(num, parent):
-    if parent[num] == -1:
+    if parent[num] == num:
         return num
     else:
         return get_root(parent[num], parent)
 
 def solution(n, costs):
-    costs.sort(key = lambda x : x[2])
-    parent = [-1] * n
+    parent = list(range(n))
     
+    costs.sort(key = lambda x : x[2])
     answer = 0
     cnt = 0
     for cost in costs:
-        node1 = cost[0]
-        node2 = cost[1]
+        root1 = get_root(cost[0], parent)
+        root2 = get_root(cost[1], parent)
         
-        if get_root(node1, parent) != get_root(node2, parent):
+        if root1 != root2:
             cnt += 1
-            parent[get_root(node2, parent)] = node1
             answer += cost[2]
+            parent[root2] = root1
             
             if cnt == n - 1:
                 break
