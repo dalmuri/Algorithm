@@ -4,13 +4,12 @@
 using namespace std;
 
 int get_parent(int node, vector<int>& parent){
-    if(parent[node] == node) return node;
+    if(parent[node] == -1) return node;
     return get_parent(parent[node], parent);
 }
 
 int solution(int n, vector<vector<int>> costs) {
-    vector<int> parent(n, 0);
-    for(int i = 0; i < n; i++) parent[i] = i;
+    vector<int> parent(n, -1);
     
     int answer = 0;
     int cnt = 0;
