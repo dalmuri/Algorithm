@@ -1,10 +1,10 @@
 # [level 3] 공 이동 시뮬레이션 - 87391 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/87391?language=cpp) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/87391?language=python3) 
 
 ### 성능 요약
 
-메모리: 21.9 MB, 시간: 6.14 ms
+메모리: 22.5 MB, 시간: 0.56 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 04월 13일 20:25:04
+2024년 04월 13일 21:12:17
 
 ### 문제 설명
 
