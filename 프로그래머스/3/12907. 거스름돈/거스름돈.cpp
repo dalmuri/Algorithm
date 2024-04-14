@@ -1,5 +1,4 @@
 #include <vector>
-#include <algorithm>
 
 using namespace std;
 
@@ -9,7 +8,7 @@ int solution(int n, vector<int> money) {
     
     for(int coin : money){
         for(int i = coin; i <= n; i++){
-            method[i] += method[i - coin];
+            method[i] = (method[i] + method[i - coin]) % 1000000007;
         }
     }
     
