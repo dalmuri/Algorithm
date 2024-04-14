@@ -1,37 +1,33 @@
 #include <string>
 #include <vector>
+#include <numeric>
 
 using namespace std;
 
-double get_area(vector<int> &range, vector<int> &graph){
-    int x_start = range[0];
-    int x_end = graph.size() - 1 + range[1];
-    if(x_end < x_start) return -1;
-    
-    double area = 0;
-    
-    for(int x = x_start; x < x_end; x++){
-        area += ((double)graph[x] + graph[x+1]) / 2;
-    }
-    
-    return area;
-}
-
 vector<double> solution(int k, vector<vector<int>> ranges) {
-    vector<double> answer;
-    
-    vector<int> graph(1, k);
-    while(k != 1){
-        if(k % 2 == 0) k /= 2;
+    // 콜라츠 추측 계산
+    vector<int> collatz = {k};
+    while(k > 1){
+        if((k & 1) == 0) k /= 2;
         else k = k * 3 + 1;
         
-        graph.push_back(k);
+        collatz.push_back(k);
     }
     
+    // 길이 1의 구간마다 넓이 계산
+    vector<double> areas;
+    for(int i = 0; i + 1 < collatz.size(); i++){
+        areas.push_back((double)(collatz[i] + collatz[i + 1]) / 2);
+    }
+    
+    // 정답 계산
+    vector<double> answer;
     for(vector<int> range : ranges){
-        answer.push_back(get_area(range, graph));
+        if(range[0] <= (int)areas.size() + range[1])
+            answer.push_back(accumulate(areas.begin() + range[0], areas.end() + range[1], 0.0));
+        else
+            answer.push_back(-1.0);
     }
-    
     
     return answer;
 }
