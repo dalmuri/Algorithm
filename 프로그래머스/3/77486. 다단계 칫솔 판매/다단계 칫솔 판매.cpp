@@ -9,7 +9,7 @@ void allocate(int seller_idx, int profit, vector<int>& parents, vector<int>& ans
     int mine = profit - to_give;
     
     answer[seller_idx] += mine;
-    if(parents[seller_idx] != -1) allocate(parents[seller_idx], to_give, parents, answer);
+    if(parents[seller_idx] != -1 && to_give > 0) allocate(parents[seller_idx], to_give, parents, answer);
 }
 
 vector<int> solution(vector<string> enroll, vector<string> referral, vector<string> seller, vector<int> amount) {
