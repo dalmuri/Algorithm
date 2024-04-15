@@ -1,5 +1,5 @@
 import sys
-sys.setrecursionlimit(100000)
+sys.setrecursionlimit(10000)
 
 def calc(seller_idx, profit, parents, answer):
     to_give = profit // 10
@@ -10,16 +10,12 @@ def calc(seller_idx, profit, parents, answer):
         calc(parents[seller_idx], to_give, parents, answer)
 
 def solution(enroll, referral, seller, amount):
-    idxs = {}
-    parents = [-1] * len(enroll)
-    for i in range(len(enroll)):
-        idxs[enroll[i]] = i
-        
-        if referral[i] != "-":
-            parents[i] = idxs[referral[i]]
+    idxs = dict((enr, i) for i, enr in enumerate(enroll))
+    idxs["-"] = -1
+    parents = [idxs[ref] for ref in referral]
     
     answer = [0] * len(enroll)
-    for i in range(len(seller)):
-        calc(idxs[seller[i]], amount[i] * 100, parents, answer)
+    for sel, amt in zip(seller, amount):
+        calc(idxs[sel], amt * 100, parents, answer)
     
     return answer
