@@ -6,10 +6,8 @@ using namespace std;
 vector<int> solution(int e, vector<int> starts) {
     vector<int> factors(e + 1, 1);
     for(int i = 2; i <= e; i++){
-        int num = i;
-        while(num <= e){
+        for(int num = i; num <= e; num += i){
             factors[num]++;
-            num += i;
         }
     }
     
