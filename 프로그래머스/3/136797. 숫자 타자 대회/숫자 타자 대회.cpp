@@ -37,9 +37,9 @@ vector<vector<int>> get_dist(){
 }
 
 int solution(string numbers) {
-    vector<vector<int>> dist = get_dist();
+    vector<vector<int>> dist = get_dist(); // dist[i][j] = i에서 j로 이동해 누를 때의 가중치
     
-    vector<vector<vector<int>>> weights(numbers.size() + 1, vector<vector<int>>(10, vector<int>(10, INT_MAX)));
+    vector<vector<vector<int>>> weights(numbers.size() + 1, vector<vector<int>>(10, vector<int>(10, INT_MAX))); // weights[i][l][r] = numbers[i+1]까지 누른 후 왼손과 오른손이 각각 l, r 위에 있을 때의 가중치 합
     weights[0][4][6] = 0;
     for(int i = 0; i < numbers.size(); i++){
         int now = i + 1;
@@ -63,6 +63,7 @@ int solution(string numbers) {
             }
         }
     }
+    
     vector<int> tmp_min(10);
     transform(weights[numbers.size()].begin(), weights[numbers.size()].end(), tmp_min.begin(), [](vector<int> a){
         return *min_element(a.begin(), a.end());
