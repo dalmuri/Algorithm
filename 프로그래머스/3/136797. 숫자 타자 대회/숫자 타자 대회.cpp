@@ -11,9 +11,7 @@ vector<vector<int>> get_dist(){
     
     vector<vector<int>> dist(10, vector<int>(10, 1));
     for(int i = 0; i < 10; i++){
-        for(int j = i; j < 10; j++){
-            if(i == j) continue;
-            
+        for(int j = i + 1; j < 10; j++){
             int diff_r = abs(coordinate[i][0] - coordinate[j][0]);
             int diff_c = abs(coordinate[i][1] - coordinate[j][1]);
             
@@ -39,7 +37,7 @@ vector<vector<int>> get_dist(){
 int solution(string numbers) {
     vector<vector<int>> dist = get_dist(); // dist[i][j] = i에서 j로 이동해 누를 때의 가중치
     
-    vector<vector<vector<int>>> weights(numbers.size() + 1, vector<vector<int>>(10, vector<int>(10, INT_MAX))); // weights[i + 1][l][r] = numbers[i]까지 누른 후 왼손과 오른손이 각각 l, r 위에 있을 때의 가중치 합의 최솟값
+    vector<vector<vector<int>>> weights(numbers.size() + 1, vector<vector<int>>(10, vector<int>(10, INT_MAX))); // weights[i][l][r] = numbers[i+1]까지 누른 후 왼손과 오른손이 각각 l, r 위에 있을 때의 가중치 합
     weights[0][4][6] = 0;
     for(int i = 0; i < numbers.size(); i++){
         int now = i + 1;
