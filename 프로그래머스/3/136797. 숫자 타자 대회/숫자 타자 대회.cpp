@@ -41,7 +41,6 @@ int solution(string numbers) {
     
     vector<vector<vector<int>>> weights(numbers.size() + 1, vector<vector<int>>(10, vector<int>(10, INT_MAX)));
     weights[0][4][6] = 0;
-    weights[0][6][4] = 0;
     for(int i = 0; i < numbers.size(); i++){
         int now = i + 1;
         int num = numbers[i] - '0';
