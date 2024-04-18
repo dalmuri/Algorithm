@@ -1,10 +1,10 @@
 # [level 3] 숫자 게임 - 12987 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12987) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12987?language=python3) 
 
 ### 성능 요약
 
-메모리: 10.1 MB, 시간: 12.99 ms
+메모리: 18.2 MB, 시간: 41.49 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 04월 18일 23:37:35
+2024년 04월 18일 23:39:27
 
 ### 문제 설명
 
