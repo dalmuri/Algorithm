@@ -1,10 +1,10 @@
+from collections import defaultdict
+
 def solution(gems):
     answer = [1, len(gems)]
     
-    buy = {}
-    for gem in gems:
-        buy[gem] = 0
-    kinds = len(buy)
+    buy = defaultdict(int)
+    kinds = len(set(gems))
     
     start = 0
     end = -1
