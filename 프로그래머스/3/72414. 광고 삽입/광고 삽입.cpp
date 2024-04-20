@@ -41,7 +41,7 @@ string solution(string play_time, string adv_time, vector<string> logs) {
     
     int adv = str2int(adv_time);
     int max_start_time = 0;
-    long long max_accm = prefix_sum[adv];
+    long long max_accm = prefix_sum[adv - 1];
     for(int i = 1; i + adv <= play; i++){
         if(max_accm < prefix_sum[i + adv - 1] - prefix_sum[i - 1]){
             max_accm = prefix_sum[i + adv - 1] - prefix_sum[i - 1];
