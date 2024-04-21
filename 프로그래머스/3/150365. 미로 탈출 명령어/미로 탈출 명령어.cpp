@@ -25,5 +25,9 @@ string solution(int n, int m, int x, int y, int r, int c, int k) {
     string rl = "";
     for(int i = 0; i < k / 2; i++) rl += "rl";
     
-    return string(down + down_over, 'd') + string(left + left_over, 'l') + rl + string(right + left_over, 'r') + string(up + down_over, 'u');
+    return string(down + down_over, 'd') + 
+           string(left + left_over, 'l') +
+           rl +
+           string(right + left_over, 'r') + 
+           string(up + down_over, 'u');
 }
