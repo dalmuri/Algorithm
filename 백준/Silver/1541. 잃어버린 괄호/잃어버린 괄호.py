@@ -2,19 +2,18 @@ import sys
 
 expression = sys.stdin.readline()
 
-nums = []
-operators = []
+answer = 0
 
 prev_oper = -1
+is_plus = True
 for i in range(len(expression)):
     if expression[i] in ["+", "-"]:
-        operators.append(expression[i])
-        nums.append(int(expression[prev_oper + 1:i]))
+        answer += int(expression[prev_oper + 1:i]) if is_plus else -int(expression[prev_oper + 1:i])
+        
+        if expression[i] == "-":
+            is_plus = False
         prev_oper = i
-nums.append(int(expression[prev_oper + 1:]))
 
-if "-" in operators:
-     for i in range(operators.index("-") + 1, len(nums)):
-        nums[i] *= -1  
+answer += int(expression[prev_oper + 1:]) if is_plus else -int(expression[prev_oper + 1:])
 
-print(sum(nums))
+print(answer)
