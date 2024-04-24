@@ -1,16 +1,16 @@
 import sys
 
-def can_visit(weight, start, end, n, bridge):
+def can_visit(weight, source, destination, n, bridges):
     visited = [False] * (n + 1)
-    stk = [start]
-    while stk:
-        now = stk.pop()
+    to_visit = [source] # stack
+    while to_visit:
+        now = to_visit.pop()
         visited[now] = True
         
-        for next, limit in bridge[now]:
+        for next, limit in bridges[now]:
             if weight <= limit and not visited[next]:
-                stk.append(next)
-                if next == end:
+                to_visit.append(next)
+                if next == destination:
                     return True
     
     return False
@@ -18,29 +18,29 @@ def can_visit(weight, start, end, n, bridge):
 
 n, m = map(int, sys.stdin.readline().split())
 
-bridge = [[] for _ in range(n + 1)]
-max_weight = 1_000_000_000
+bridges = [[] for _ in range(n + 1)]
+max_weight = 0
 
 for _ in range(m):
     a, b, c = map(int, sys.stdin.readline().split())
-    bridge[a].append((b, c))
-    bridge[b].append((a, c))
+    bridges[a].append((b, c))
+    bridges[b].append((a, c))
     max_weight = max(max_weight, c)
 
-start, end = map(int, sys.stdin.readline().split())
+source, destination = map(int, sys.stdin.readline().split())
 
-# 중량 계산
-left = 1
-right = max_weight
+# 이진탐색
+start = 1
+end = max_weight
 answer = 0
-while left <= right:
-    mid = (left + right) // 2
-    able = can_visit(mid, start, end, n, bridge)
+while start <= end:
+    mid = (start + end) // 2
+    able = can_visit(mid, source, destination, n, bridges)
     
     if able: # 도착 성공
         answer = mid
-        left = mid + 1
+        start = mid + 1
     else:
-        right = mid - 1
+        end = mid - 1
 
 print(answer)
