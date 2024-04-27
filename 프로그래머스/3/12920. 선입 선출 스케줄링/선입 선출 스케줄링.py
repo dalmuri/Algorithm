@@ -16,6 +16,7 @@ def solution(n, cores):
             left = mid + 1
     
     remain_work = n - sum((time - 1) // core for core in cores)
+    
     answer = 0
     for i, core in enumerate(cores):
         if time % core == 0:
