@@ -4,7 +4,7 @@ n, d, k, c = map(int, sys.stdin.readline().split())
 sushi = [0] * n
 for i in range(n):
     sushi[i] = int(sys.stdin.readline())
-d = len(set(sushi)) + 1
+d = len(set(sushi)) if c in sushi else len(set(sushi)) + 1
 sushi += sushi[:k - 1]
 
 answer = 0
