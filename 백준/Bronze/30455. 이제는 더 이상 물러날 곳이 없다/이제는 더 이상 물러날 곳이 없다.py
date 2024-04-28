@@ -1,0 +1,1 @@
+print("Goose" if (int(input())&1) else "Duck")
