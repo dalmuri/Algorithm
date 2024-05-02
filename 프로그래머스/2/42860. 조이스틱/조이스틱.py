@@ -23,7 +23,7 @@ def solution(name):
     j = long_A[1]
     
     if j > len(name): # AAA______AA
-        answer = min(answer, min(i, len(name) - (j - len(name))))
+        answer = min(i, len(name) - (j - len(name)))
     elif long_A != [0, 0]: # name에 A가 하나라도 있는 경우
         answer = min(answer, i + len(name) - j + min(i, len(name) - j))
         '''
