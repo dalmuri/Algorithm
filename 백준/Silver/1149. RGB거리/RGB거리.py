@@ -9,8 +9,7 @@ dp = [[0, 0, 0] for _ in range(n + 1)]
 # dp[i][j] = 구간 [0, i]에서 i번의 집을 j색으로 칠할 때 비용의 최솟값
 
 for i in range(1, n + 1):
-    dp[i][0] = min(dp[i - 1][1], dp[i - 1][2]) + cost[i][0]
-    dp[i][1] = min(dp[i - 1][0], dp[i - 1][2]) + cost[i][1]
-    dp[i][2] = min(dp[i - 1][0], dp[i - 1][1]) + cost[i][2]
+    for j in range(3):
+        dp[i][j] = min(dp[i - 1][(j + 1) % 3], dp[i - 1][(j + 2) % 3]) + cost[i][j]
 
 print(min(dp[n]))
