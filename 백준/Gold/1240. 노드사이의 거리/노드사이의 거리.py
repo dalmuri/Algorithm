@@ -19,6 +19,7 @@ def make_tree(node, parent):
     dist[node][node] = 0
     for child, d in graph[node]:
         dist[node][child] = d
+        dist[child][node] = d
         if child == parent: continue
         parents[child] = node
         children.append(child)
@@ -26,6 +27,7 @@ def make_tree(node, parent):
         subchildren = make_tree(child, node)
         for subchild in subchildren:
             dist[node][subchild] = d + dist[child][subchild]
+            dist[subchild][node] = d + dist[child][subchild]
         children += subchildren
     return children
 
