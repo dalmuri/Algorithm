@@ -1,36 +1,27 @@
-def get_binary(n):
-    result = []
-    cnt = 0
-    while n > 0:
-        result.append(n & 1)
-        cnt += n & 1
-        n >>= 1
-    return result, cnt
+import sys
 
-n, k = map(int, input().split(" "))
+n, k = map(int, sys.stdin.readline().split())
+binary = []
+num_bottles = 0
+while n > 0:
+    binary.append(n & 1)
+    num_bottles += n & 1
+    n >>= 1
 
-bnum, num_bottles = get_binary(n)
 answer = 0
-
-if num_bottles <= k:
-    print(answer)
-else:
-    is_buying = False
-    i = 0
-    while i < len(bnum) and num_bottles > k:
-        if not is_buying:
-            if bnum[i] == 1:
-                bnum[i] = 0
-                is_buying = True
-                answer += 2**i
+buying = False
+for i in range(len(binary)):
+    if buying:
+        if binary[i] == 0:
+            binary[i] = 1
+            buying = False
         else:
-            if bnum[i] == 1:
-                bnum[i] = 0
-                num_bottles -= 1
-            else:
-                bnum[i] = 1
-                is_buying = False
-                continue
-        i += 1
+            num_bottles -= 1
     
-    print(answer)
+    if num_bottles <= k: break
+    
+    if not buying and binary[i] == 1:
+        buying = True
+        answer += 2**i
+
+print(answer)
