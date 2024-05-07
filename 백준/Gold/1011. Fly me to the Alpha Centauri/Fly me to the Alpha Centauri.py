@@ -1,28 +1,20 @@
-def calc(x, y):
+import sys
+
+t = int(sys.stdin.readline())
+for _ in range(t):
+    x, y = map(int, sys.stdin.readline().split())
+    
     dist = y - x
-    if dist == 1:
-        return 1
-    
-    result = 0
-    now = 1
-    while dist > 0:
-        if dist >= now:
-            result += 1
-            dist -= now
-        if dist >= now:
-            result += 1
-            dist -= now
+    left = 0
+    right = 2**31 - 1
+    n = right
+    while left <= right:
+        mid = (left + right) // 2
         
-        if 0 < dist and dist <= now:
-            result += 1
-            dist = 0
-            break
-        now += 1
-    return result
-
-t = int(input())
-
-for i in range(t):
-    x, y = map(int, input().split(" "))
-    print(calc(x, y))
+        if dist <= mid * mid + mid:
+            n = mid
+            right = mid - 1
+        else:
+            left = mid + 1
     
+    print(2 * n if dist > n * n else 2 * n - 1)
