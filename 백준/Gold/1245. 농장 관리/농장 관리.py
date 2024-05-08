@@ -9,32 +9,28 @@ farm = []
 for _ in range(n):
     farm.append(list(map(int, sys.stdin.readline().split())))
 
-high = [[0] * m for _ in range(n)]
 visited = [[False] * m for _ in range(n)]
-def check(r, c, num):
-    if r < 0 or r >= n or c < 0 or c >= m: return True
-    if farm[r][c] > num: return False
-    if farm[r][c] < num:
-        high[r][c] = -1
-        return True
-    if high[r][c] != 0: return True if high[r][c] > 0 else False
-    if visited[r][c]: return True
-    
+def check(r, c, height):
     visited[r][c] = True
-    
     result = True
     for dr, dc in direction:
-        result &= check(r + dr, c + dc, num)
-    
-    high[r][c] = 1 if result else -1
-    
+        nr = r + dr
+        nc = c + dc
+        if nr < 0 or nr >= n or nc < 0 or nc >=m: continue
+        if farm[nr][nc] < height: continue
+        if farm[nr][nc] > height:
+            result = False
+            continue
+        if visited[nr][nc]: continue
+        
+        result &= check(nr, nc, height)
     return result
     
 
 answer = 0
 for r in range(n):
     for c in range(m):
-        if high[r][c] != 0: continue
+        if visited[r][c]: continue
         
         if check(r, c, farm[r][c]):
             answer += 1
