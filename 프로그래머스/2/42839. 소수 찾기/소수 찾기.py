@@ -9,7 +9,7 @@ def solution(numbers):
     for i in range(2, int(sqrt(len(is_prime))) + 1):
         if not is_prime[i]: continue
         
-        for j in range(i << 1, len(is_prime), i):
+        for j in range(i**2, len(is_prime), i):
             is_prime[j] = False
     
     answer = set()
