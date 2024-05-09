@@ -1,17 +1,17 @@
 import sys
 
 def valid(ps):
-    stk = []
+    cnt = 0
     for c in ps:
         if c == '(':
-            stk.append(c)
+            cnt += 1
         else:
-            if stk:
-                stk.pop()
+            if cnt:
+                cnt -= 1
             else:
                 return False
     
-    return len(stk) == 0
+    return cnt == 0
 
 
 n = int(sys.stdin.readline())
