@@ -3,24 +3,29 @@ from heapq import heappush, heappop
 
 v, e = map(int, sys.stdin.readline().split())
 
-edges = [[] for _ in range(v + 1)]
+edges = []
 for _ in range(e):
     a, b, w = map(int, sys.stdin.readline().split())
-    edges[a].append([b, w])
-    edges[b].append([a, w])
+    heappush(edges, [w, a, b])
 
 answer = 0
-visited = [False] * (v + 1)
-hq = []
-heappush(hq, [0, 1, 1]) # weight, v1, v2
-while hq:
-    weight, v1, v2 = heappop(hq)
-    if visited[v2]: continue
+root = list(range(v + 1))
+
+
+def get_root(node):
+    if root[node] == node:
+        return node
+    root[node] = get_root(root[node])
+    return root[node]
+
+
+while edges:
+    weight, v1, v2 = heappop(edges)
+    r1 = get_root(v1)
+    r2 = get_root(v2)
+    if r1 == r2: continue
     
-    visited[v2] = True
     answer += weight
-    for node, w in edges[v2]:
-        if visited[node]: continue
-        heappush(hq, [w, v2, node])
+    root[max(r1, r2)] = min(r1, r2)
 
 print(answer)
