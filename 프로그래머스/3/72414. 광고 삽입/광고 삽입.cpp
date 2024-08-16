@@ -12,15 +12,15 @@ int str2int(string time){
 }
 
 string int2str(int time){
-    int h = time / 3600;
+    string h = to_string(time / 3600);
     time %= 3600;
-    int m = time / 60;
+    string m = to_string(time / 60);
     time %= 60;
-    int s = time;
+    string s = to_string(time);
     
-    return string(2 - to_string(h).size(), '0') + to_string(h) + ":" +
-           string(2 - to_string(m).size(), '0') + to_string(m) + ":" +
-           string(2 - to_string(s).size(), '0') + to_string(s);
+    return string(2 - h.size(), '0') + h + ":" +
+           string(2 - m.size(), '0') + m + ":" +
+           string(2 - s.size(), '0') + s;
 }
 
 string solution(string play_time, string adv_time, vector<string> logs) {
@@ -46,5 +46,6 @@ string solution(string play_time, string adv_time, vector<string> logs) {
             max_start_time = i;
         }
     }
+    
     return int2str(max_start_time);
 }
