@@ -1,25 +1,22 @@
 #include <string>
 #include <vector>
-#include <climits>
 
 using namespace std;
 
-int calc(int start, int end, vector<vector<int>>& dp, vector<vector<int>>& matrix_sizes){
-    for(int k = start; k < end; k++){
-        int cnt1 = dp[start][k] != INT_MAX ? dp[start][k] : calc(start, k, dp, matrix_sizes);
-        int cnt2 = dp[k + 1][end] != INT_MAX ? dp[k + 1][end] : calc(k + 1, end, dp, matrix_sizes);
-        
-        int result = cnt1 + cnt2 + matrix_sizes[start][0] * matrix_sizes[k][1] * matrix_sizes[end][1];
-        dp[start][end] = min(dp[start][end], result);
-    }
-    
-    return dp[start][end];
-}
-
 int solution(vector<vector<int>> matrix_sizes) {
-    vector<vector<int>> dp(matrix_sizes.size(), vector<int>(matrix_sizes.size(), INT_MAX));
-    for(int i = 0; i < matrix_sizes.size(); i++) dp[i][i] = 0;
+    int inf = 987654321;
+    int n = matrix_sizes.size();
+    vector<vector<int>> dp(n, vector<int>(n, inf));
+    // dp[i][j] = i번 행렬부터 j번 행렬까지 곱한 연산의 최솟값
     
-    int answer = calc(0, matrix_sizes.size() - 1, dp, matrix_sizes);
-    return answer;
+    for(int i = 0; i < n; i++) dp[i][i] = 0;
+    for(int len = 1; len < n; len++){
+        for(int i = 0; i + len < n; i++){
+            for(int j = i; j < i + len; j++){
+                dp[i][i + len] = min(dp[i][i + len], dp[i][j] + dp[j + 1][i + len] + matrix_sizes[i][0] * matrix_sizes[j][1] * matrix_sizes[i + len][1]);
+            }
+        }
+    }
+
+    return dp[0][n - 1];
 }
