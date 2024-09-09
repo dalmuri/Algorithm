@@ -6,8 +6,8 @@ using namespace std;
 int solution(vector<vector<int>> matrix_sizes) {
     int inf = 987654321;
     int n = matrix_sizes.size();
-    vector<vector<int>> dp(n, vector<int>(n, inf));
-    // dp[i][j] = i번 행렬부터 j번 행렬까지 곱한 연산의 최솟값
+    vector<vector<int>> dp(matrix_sizes.size(), vector<int>(n, inf));
+    // dp[i][j] = i번 행렬부터 j번 행렬까지 곱한 연산 횟수의 최솟값
     
     for(int i = 0; i < n; i++) dp[i][i] = 0;
     for(int len = 1; len < n; len++){
@@ -17,6 +17,5 @@ int solution(vector<vector<int>> matrix_sizes) {
             }
         }
     }
-
     return dp[0][n - 1];
 }
