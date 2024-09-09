@@ -1,36 +1,38 @@
-#include <string>
 #include <vector>
+#include <cmath>
+#include <numeric>
 
 using namespace std;
 
-long long search(int node, int parent, vector<vector<int>>& tree, vector<long long>& weights){
-    long long cnt = 0;
+long long calc(int node, int parent, vector<long long>& weights, vector<vector<int>>& tree){
+    long long result = 0ll;
+    
     for(int child : tree[node]){
         if(child == parent) continue;
         
-        cnt += search(child, node, tree, weights);
+        result += calc(child, node, weights, tree);
     }
     
-    if(parent < 0) return cnt;
+    if(parent == -1) return result;
     
-    cnt += abs(weights[node]);
+    result += abs(weights[node]);
     weights[parent] += weights[node];
-    weights[node] = 0;
+    weights[node] = 0ll;
     
-    return cnt;
+    return result;
 }
 
 long long solution(vector<int> a, vector<vector<int>> edges) {
+    if(accumulate(a.begin(), a.end(), 0ll) != 0ll) return -1ll;
+    
     vector<vector<int>> tree(a.size(), vector<int>());
-    vector<long long> weights;
-    for(int w : a) weights.push_back(w);
     for(vector<int> edge : edges){
         tree[edge[0]].push_back(edge[1]);
         tree[edge[1]].push_back(edge[0]);
     }
     
-    long long answer = search(0, -1, tree, weights);
-    if(weights[0] != 0) return -1ll;
+    vector<long long> weights;
+    for(int weight : a) weights.push_back(weight);
     
-    return answer;
+    return calc(0, -1, weights, tree);
 }
