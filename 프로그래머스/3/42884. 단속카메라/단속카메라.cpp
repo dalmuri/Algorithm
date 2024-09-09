@@ -9,11 +9,13 @@ int solution(vector<vector<int>> routes) {
     
     int answer = 1;
     int cam = routes[0][1];
-    for(vector<int> route : routes){
-        if(cam < route[0]){
+    for(int i = 1; i < routes.size(); i++){
+        if(cam < routes[i][0]){
             answer++;
-            cam = route[1];
+            cam = routes[i][1];
         }
+        
     }
+    
     return answer;
 }
