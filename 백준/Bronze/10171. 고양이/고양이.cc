@@ -4,10 +4,7 @@
 using namespace std;
 
 int main(){
-    cout << "\\    /\\\n";
-    cout << " )  ( \')\n";
-    cout << "(  /  )\n";
-    cout << " \\(__)|";
+    cout << "\\    /\\\n )  ( \')\n(  /  )\n \\(__)|";
 
     return 0;
 }
