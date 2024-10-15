@@ -7,33 +7,42 @@
 
 using namespace std;
 
+int n, m;
+vector<int> nums;
+
+void dfs(vector<bool>& used, vector<int>& output){
+    if(output.size() == m){
+        for(int out : output) cout << out << " ";
+        cout << "\n";
+        return;
+    }
+
+    for(int i = 0; i < n; i++){
+        if(used[i]) continue;
+
+        output.push_back(nums[i]);
+        used[i] = true;
+
+        dfs(used, output);
+
+        output.pop_back();
+        used[i] = false;
+    }
+}
+
 int main(){
     FASTIO
 
-    int n, m;
     cin >> n >> m;
 
-    vector<int> nums(n);
+    nums = vector<int>(n);
     for(int i = 0; i < n; i++) cin >> nums[i];
-    
-    vector<int> perm(n - m, 0);
-    for(int i = 1; i <= m; i++) perm.push_back(i);
+    sort(nums.begin(), nums.end());
 
-    vector<vector<int>> all;
-    do{
-        vector<int> tmp;
-        for(int i = 1; i <= m; i++){
-            tmp.push_back(nums[find(perm.begin(), perm.end(), i) - perm.begin()]);
-        }
-        all.push_back(tmp);
-    }while(next_permutation(perm.begin(), perm.end()));
+    vector<bool> used(n, false);
+    vector<int> output;
 
-    sort(all.begin(), all.end());
-
-    for(vector<int> vec : all){
-        for(int num : vec) cout << num << " ";
-        cout << "\n";
-    }
+    dfs(used, output);
 
     return 0;
 }
