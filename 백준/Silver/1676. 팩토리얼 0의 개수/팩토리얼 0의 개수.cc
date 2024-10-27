@@ -12,17 +12,8 @@ int main(){
 
     int cnt2 = 0, cnt5 = 0;
     for(int i = 1; i <= n; i++){
-        int num = i;
-        while(num % 2 == 0){
-            cnt2++;
-            num /= 2;
-        }
-
-        num = i;
-        while(num % 5 == 0){
-            cnt5++;
-            num /= 5;
-        }
+        for(int j = i; j % 2 == 0; j /= 2) cnt2++;
+        for(int j = i; j % 5 == 0; j /= 5) cnt5++;
     }
 
     cout << min(cnt2, cnt5);
