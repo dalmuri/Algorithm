@@ -10,18 +10,18 @@ int main(){
     int n, m;
     cin >> n;
 
-    unordered_map<int, int> exists;
+    unordered_set<int> exists;
     for(int i = 0; i < n; i++){
         int num;
         cin >> num;
-        exists[num]++;
+        exists.insert(num);
     }
 
     cin >> m;
     for(int i = 0; i < m; i++){
         int num;
         cin >> num;
-        if(exists[num] > 0) cout << "1\n";
+        if(exists.find(num) != exists.end()) cout << "1\n";
         else cout << "0\n";
     }
 
