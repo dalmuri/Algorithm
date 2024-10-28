@@ -10,7 +10,7 @@ int main(){
     int n, m;
     cin >> n;
 
-    map<int, int> exists;
+    unordered_map<int, int> exists;
     for(int i = 0; i < n; i++){
         int num;
         cin >> num;
