@@ -18,20 +18,20 @@ int main(){
         }
     }
 
-    vector<char> lcs;
     int i = str1.size();
     int j = str2.size();
+    vector<char> lcs(dp[i][j]);
     while(dp[i][j] > 0){
         if(dp[i - 1][j] == dp[i][j]) i--;
         else if(dp[i][j - 1] == dp[i][j]) j--;
         else{
-            lcs.push_back(str1[i - 1]);
+            lcs[dp[i][j] - 1] = str1[i - 1];
             i--;
             j--;
         }
     }
 
-    for(int i = lcs.size() - 1; i >= 0; i--) cout << lcs[i];
+    for(char c : lcs) cout << c;
 
     return 0;
 }
