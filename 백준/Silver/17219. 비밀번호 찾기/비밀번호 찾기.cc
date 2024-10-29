@@ -10,7 +10,7 @@ int main(){
     int n, m;
     cin >> n >> m;
 
-    map<string, string> passwords;
+    unordered_map<string, string> passwords;
     for(int i = 0; i < n; i++){
         string website, password;
         cin >> website >> password;
