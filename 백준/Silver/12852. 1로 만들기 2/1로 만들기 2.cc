@@ -4,55 +4,33 @@
 
 using namespace std;
 
-int inf = 987654321;
-vector<vector<int>> cnt;
-
 int main(){
     FASTIO
+
+    int inf = 987654321;
 
     int n;
     cin >> n;
 
-    cnt = vector<vector<int>>(n + 1, vector<int>(2, inf));
-    cnt[n][0] = 0;
-
-    queue<int> q;
-    q.push(n);
-
-    while(!q.empty()){
-        int now = q.front();
-        q.pop();
-
-        if(now == 1) break;
-
-        if(now % 3 == 0 && cnt[now][0] + 1 < cnt[now / 3][0]){
-            cnt[now / 3][0] = cnt[now][0] + 1;
-            cnt[now / 3][1] = now;
-            q.push(now / 3);
-        }
-
-        if(now % 2 == 0 && cnt[now][0] + 1 < cnt[now / 2][0]){
-            cnt[now / 2][0] = cnt[now][0] + 1;
-            cnt[now / 2][1] = now;
-            q.push(now / 2);
-        }
-
-        if(cnt[now][0] + 1 < cnt[now - 1][0]){
-            cnt[now - 1][0] = cnt[now][0] + 1;
-            cnt[now - 1][1] = now;
-            q.push(now - 1);
-        }
+    vector<int> cnt(n + 1);
+    cnt[1] = 0;
+    for(int i = 2; i <= n; i++){
+        cnt[i] = cnt[i - 1] + 1;
+        if(i % 2 == 0) cnt[i] = min(cnt[i], cnt[i / 2] + 1);
+        if(i % 3 == 0) cnt[i] = min(cnt[i], cnt[i / 3] + 1);
     }
 
-    cout << cnt[1][0] << "\n";
-    stack<int> stk;
-    stk.push(1);
-    for(int i = 1; i < n; i = cnt[i][1]) stk.push(cnt[i][1]);
-    while(!stk.empty()){
-        cout << stk.top() << " ";
-        stk.pop();
-    }
+    cout << cnt[n] << "\n";
     
+    int now = n;
+    while(now >= 1){
+        cout << now << " ";
+
+        int next1 = (now % 2 == 0 && cnt[now] - 1 == cnt[now / 2]) ? now / 2 : inf;
+        int next2 = (now % 3 == 0 && cnt[now] - 1 == cnt[now / 3]) ? now / 3 : inf;
+
+        now = min({now - 1, next1, next2});
+    }
 
     return 0;
 }
