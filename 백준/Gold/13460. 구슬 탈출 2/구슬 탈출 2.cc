@@ -41,24 +41,6 @@ int move(int dir, pair<int, int>& red, pair<int, int>& blue){
     return 0;
 }
 
-void search(int cnt, pair<int, int> red, pair<int, int> blue, int& answer){
-    if(cnt > 10) return;
-    if(cnt >= answer) return;
-
-    for(int d = 0; d < 4; d++){
-        pair<int, int> next_red(red);
-        pair<int, int> next_blue(blue);
-        int res = move(d, next_red, next_blue);
-        if(res < 0) continue;
-        if(res > 0){
-            answer = min(answer, cnt);
-            return;
-        }
-
-        search(cnt + 1, next_red, next_blue, answer);
-    }
-}
-
 int main(){
     FASTIO
 
@@ -81,10 +63,34 @@ int main(){
         }
     }
 
-    int answer = 11;
-    search(1, red, blue, answer);
+    int answer = 0;
+    queue<tuple<int, pair<int, int>, pair<int, int>, int>> q;
+    q.push({1, red, blue, -1});
+    while(!q.empty() && answer == 0){
+        int cnt = get<0>(q.front());
+        pair<int, int> r = get<1>(q.front());
+        pair<int, int> b = get<2>(q.front());
+        int prev = get<3>(q.front());
+        q.pop();
 
-    cout << (answer <= 10 ? answer : -1);
+        if(cnt > 10) break;
+
+        for(int d = 0; d < 4; d++){
+            if(d == prev) continue;
+            pair<int, int> next_r(r);
+            pair<int, int> next_b(b);
+            int res = move(d, next_r, next_b);
+            if(res < 0) continue;
+            if(res > 0){
+                answer = cnt;
+                break;
+            }
+
+            q.push({cnt + 1, next_r, next_b, d});
+        }
+    }
+
+    cout << (answer > 0 ? answer : -1);
 
     return 0;
 }
