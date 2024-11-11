@@ -22,7 +22,7 @@ int main(){
     for(int i = 1; i <= n; i++) a[i] += a[i - 1];
     for(int i = 1; i <= m; i++) b[i] += b[i - 1];
 
-    map<int, int> a_sum, b_sum;
+    unordered_map<int, int> a_sum, b_sum;
     for(int i = 0; i < n; i++){
         for(int j = i + 1; j <= n; j++){
             a_sum[a[j] - a[i]]++;
