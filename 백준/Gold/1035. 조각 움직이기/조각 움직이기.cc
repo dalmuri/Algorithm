@@ -12,38 +12,31 @@ int dist(pair<int, int> piece, int r, int c){
     return abs(r - piece.first) + abs(c - piece.second);
 }
 
+int adj_cnt(int r, int c, bool (*visited)[5]){
+    visited[r][c] = true;
+    int res = 1;
+
+    for(int* d : dir){
+        int dr = r + d[0];
+        int dc = c + d[1];
+        if(dr < 0 || dr >= 5 || dc < 0 || dc >= 5) continue;
+        if(!used[dr][dc]) continue;
+        if(visited[dr][dc]) continue;
+
+        res += adj_cnt(dr, dc, visited);
+    }
+
+    return res;
+}
+
 bool is_adjacent(){
-    bool checked[5][5] = {false};
-    queue<pair<int, int>> q;
-    int adj = 0;
+    bool visited[5][5] = {false};
     for(int i = 0; i < 5; i++){
         for(int j = 0; j < 5; j++){
             if(used[i][j]){
-                q.push({i, j});
-                checked[i][j] = true;
-                break;
+                if(adj_cnt(i, j, visited) == pieces.size()) return true;
+                else return false;
             }
-        }
-        if(!q.empty()) break;
-    }
-
-    while(!q.empty()){
-        int r = q.front().first;
-        int c = q.front().second;
-        q.pop();
-
-        adj++;
-        if(adj == pieces.size()) return true;
-
-        for(int* d : dir){
-            int dr = r + d[0];
-            int dc = c + d[1];
-            if(dr < 0 || dr >= 5 || dc < 0 || dc >= 5) continue;
-            if(!used[dr][dc]) continue;
-            if(checked[dr][dc]) continue;
-
-            q.push({dr, dc});
-            checked[dr][dc] = true;
         }
     }
 
