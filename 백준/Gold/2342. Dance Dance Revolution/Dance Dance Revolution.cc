@@ -28,23 +28,23 @@ int main(){
     dp[0][0][0] = 0;
 
     for(int i = 0; i + 1 < dir.size(); i++){
+        int now = dir[i];
         int next = dir[i + 1];
-        for(int l = 0; l < 5; l++){
-            for(int r = 0; r < 5; r++){
-                if(l == next || r == next){
-                    dp[i + 1][l][r] = min(dp[i + 1][l][r], dp[i][l][r] + 1);
-                    continue;
-                }
 
-                dp[i + 1][next][r] = min(dp[i + 1][next][r], dp[i][l][r] + calc_power(l, next));
-                dp[i + 1][l][next] = min(dp[i + 1][l][next], dp[i][l][r] + calc_power(r, next));
-            }
+        for(int l = 0; l < 5; l++){
+            if(next != now) dp[i + 1][next][now] = min(dp[i + 1][next][now], dp[i][l][now] + calc_power(l, next));
+            if(l != next) dp[i + 1][l][next] = min(dp[i + 1][l][next], dp[i][l][now] + calc_power(now, next));
+        }
+
+        for(int r = 0; r < 5; r++){
+            if(next != now) dp[i + 1][now][next] = min(dp[i + 1][now][next], dp[i][now][r] + calc_power(r, next));
+            if(r != next) dp[i + 1][next][r] = min(dp[i + 1][next][r], dp[i][now][r] + calc_power(now, next));
         }
     }
 
     int answer = inf;
-    for(int r = 0; r < 5; r++) answer = min(answer, dp[dir.size() - 1][dir.back()][r]);
     for(int l = 0; l < 5; l++) answer = min(answer, dp[dir.size() - 1][l][dir.back()]);
+    for(int r = 0; r < 5; r++) answer = min(answer, dp[dir.size() - 1][dir.back()][r]);
 
     cout << answer;
 
