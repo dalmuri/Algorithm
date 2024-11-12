@@ -4,23 +4,38 @@
 
 using namespace std;
 
+vector<int> to_use;
+
+int find_gate(int num){
+    if(to_use[num] == num) return num;
+    to_use[num] = find_gate(to_use[num]);
+    return to_use[num];
+}
+
+void combine(int a, int b){
+    int root_a = find_gate(a);
+    int root_b = find_gate(b);
+
+    to_use[max(root_a, root_b)] = min(root_a, root_b);
+}
+
 int main(){
     FASTIO
 
     int g, p;
     cin >> g >> p;
-    set<int> s;
-    for(int i = 1; i <= g; i++) s.insert(i);
+    to_use = vector<int>(g + 1);
+    for(int i = 0; i <= g; i++) to_use[i] = i;
 
     int answer = 0;
     for(int i = 0; i < p; i++){
         int plane;
         cin >> plane;
 
-        auto iter = s.upper_bound(plane);
-        if(iter == s.begin()) break;
+        int to_use_gate = find_gate(plane);
+        if(to_use_gate == 0) break;
 
-        s.erase(--iter);
+        combine(to_use_gate, to_use_gate - 1);
         answer++;
     }
 
