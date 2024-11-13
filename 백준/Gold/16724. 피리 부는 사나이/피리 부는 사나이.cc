@@ -4,11 +4,28 @@
 
 using namespace std;
 
-void next(int &r, int &c, char dir){
-    if(dir == 'U') r -= 1;
-    else if(dir == 'D') r += 1;
-    else if(dir == 'R') c += 1;
-    else c -= 1;
+vector<vector<char>> board;
+vector<vector<int>> zone;
+
+int search(int r, int c){
+    if(zone[r][c] == 1) return 1;
+    if(zone[r][c] == 2) return 0;
+
+    char dir = board[r][c];
+    int next_r = r;
+    int next_c = c;
+
+    if(dir == 'U') next_r -= 1;
+    else if(dir == 'D') next_r += 1;
+    else if(dir == 'R') next_c += 1;
+    else next_c -= 1;
+
+
+    zone[r][c] = 1;
+    int res = search(next_r, next_c);
+    zone[r][c] = 2;
+
+    return res;
 }
 
 int main(){
@@ -17,32 +34,20 @@ int main(){
     int n, m;
     cin >> n >> m;
     
-    vector<vector<char>> board(n, vector<char>(m));
+    board = vector<vector<char>>(n, vector<char>(m));
     for(int i = 0; i < n; i++){
         for(int j = 0; j < m; j++){
             cin >> board[i][j];
         }
     }
 
-    vector<vector<int>> zone(n, vector<int>(m, 0));
+    zone = vector<vector<int>>(n, vector<int>(m, 0));
     int answer = 0;
     for(int i = 0; i < n; i++){
         for(int j = 0; j < m; j++){
             if(zone[i][j] > 0) continue;
 
-            int r = i, c = j;
-            while(zone[r][c] == 0){
-                zone[r][c] = 1;
-                next(r, c, board[r][c]);
-            }
-
-            if(zone[r][c] == 1) answer++;
-
-            r = i, c = j;
-            while(zone[r][c] == 1){
-                zone[r][c] = 2;
-                next(r, c, board[r][c]);
-            }
+            answer += search(i, j);
         }
     }
 
