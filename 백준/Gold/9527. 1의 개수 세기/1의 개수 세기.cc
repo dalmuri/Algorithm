@@ -25,7 +25,7 @@ int main(){
     cin >> a >> b;
 
     for(int i = 1; i < 64; i++){
-        bit_count[i] = (bit_count[i - 1] << 1) + (1ll << (i - 1));
+        bit_count[i] = (bit_count[i - 1] << 1) + (1ll << i - 1);
     }
 
     cout << count(b) - count(a - 1);
