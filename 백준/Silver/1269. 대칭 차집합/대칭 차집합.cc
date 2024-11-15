@@ -10,7 +10,7 @@ int main(){
     int n, m;
     cin >> n >> m;
 
-    map<int, int> cnt;
+    unordered_map<int, int> cnt;
     int answer = 0;
     for(int i = 0; i < n + m; i++){
         int e;
