@@ -7,19 +7,6 @@ using namespace std;
 int roots[501];
 bool visited[501];
 
-int find_root(int num){
-    if(roots[num] == 0) return num;
-    return roots[num] = find_root(roots[num]);
-}
-
-void union_root(int a, int b){
-    int root_a = find_root(a);
-    int root_b = find_root(b);
-
-    if(root_a == root_b) return;
-    roots[max(root_a, root_b)] = min(root_a, root_b);
-}
-
 bool is_tree(int node, int parent, vector<vector<int>>& edges){
     visited[node] = true;
 
