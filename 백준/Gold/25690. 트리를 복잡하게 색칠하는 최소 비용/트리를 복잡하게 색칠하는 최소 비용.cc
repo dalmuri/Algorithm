@@ -5,13 +5,13 @@
 using namespace std;
 
 vector<int> children[100'001];
-int costs[100'001][2];
+bool visited[100'001][2];
 long long dp[100'001][2];
 
 long long calc(int node, int color){
-    if(dp[node][color] > 0) return dp[node][color];
+    if(visited[node][color]) return dp[node][color];
 
-    dp[node][color] = costs[node][color];
+    visited[node][color] = true;
     if(color == 1){ // black
         for(int child : children[node]){
             dp[node][color] += calc(child, 0);
@@ -38,7 +38,7 @@ int main(){
 
         children[p].push_back(c);
     }
-    for(int i = 0; i < n; i++) cin >> costs[i][0] >> costs[i][1];
+    for(int i = 0; i < n; i++) cin >> dp[i][0] >> dp[i][1];
 
     cout << min(calc(0, 0), calc(0, 1));
 
