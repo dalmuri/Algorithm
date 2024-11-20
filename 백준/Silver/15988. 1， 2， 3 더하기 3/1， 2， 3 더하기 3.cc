@@ -4,26 +4,26 @@
 
 using namespace std;
 
-int dp[1'000'001];
+const int max_n = 1'000'001;
+int dp[max_n];
 
 int main(){
     FASTIO
 
     int mod = 1'000'000'009;
 
+    dp[0] = 1;
+    for(int i = 0; i < max_n; i++){
+        for(int num = 1; num <= 3 && i + num <= max_n; num++){
+            dp[i + num] = (dp[i + num] + dp[i]) % mod;
+        }
+    }
+
     int t;
     cin >> t;
     while(t--){
         int n;
         cin >> n;
-
-        memset(dp, 0, sizeof(int) * (n + 1));
-        dp[0] = 1;
-        for(int i = 0; i < n; i++){
-            for(int num = 1; num <= 3 && i + num <= n; num++){
-                dp[i + num] = (dp[i + num] + dp[i]) % mod;
-            }
-        }
 
         cout << dp[n] << "\n";
     }
