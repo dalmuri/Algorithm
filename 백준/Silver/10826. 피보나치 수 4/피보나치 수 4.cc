@@ -5,7 +5,7 @@
 using namespace std;
 
 class bigint{
-    vector<uint8_t> num;
+    vector<int> num;
 
 public:
     bigint(string number = "", bool is_reverse = false){
@@ -23,13 +23,13 @@ public:
     bigint(int number) : bigint(to_string(number)){}
 
     void show(){
-        for(int i = num.size() - 1; i >= 0; i--) cout << +num[i];
+        for(int i = num.size() - 1; i >= 0; i--) cout << num[i];
     }
 
     bigint operator+(const bigint& other){
         bigint res;
         res.num.resize(max(num.size(), other.num.size()), 0);
-        uint8_t carry = 0;
+        int carry = 0;
         for(int i = 0, j = 0; i < num.size() || j < other.num.size(); i++, j++){
             if(i < num.size()) res.num[i] += num[i];
             if(j < other.num.size()) res.num[i] += other.num[i];
