@@ -4,19 +4,32 @@
 
 using namespace std;
 
-map<string, string> root;
-map<string, int> network;
+unordered_map<string, int> indexs;
+map<int, int> root;
+map<int, int> network;
 
-string get_root(string& name){
-    auto iter = root.find(name);
-    if(iter->second == name) return name;
+int get_index(string& name){
+    auto iter = indexs.find(name);
+    if(iter != indexs.end()) return iter->second;
+
+    int idx = indexs.size();
+    indexs[name] = idx;
+    root[idx] = idx;
+    network[idx] = 1;
+
+    return idx;
+}
+
+int get_root(int idx){
+    auto iter = root.find(idx);
+    if(iter->second == idx) return idx;
 
     return iter->second = get_root(iter->second);
 }
 
-int combine(string& a, string& b){
-    string root_a = get_root(a);
-    string root_b = get_root(b);
+int combine(int a, int b){
+    int root_a = get_root(a);
+    int root_b = get_root(b);
 
     if(root_a == root_b) return network[root_a];
 
@@ -39,6 +52,7 @@ int main(){
     int t;
     cin >> t;
     while(t--){
+        indexs.clear();
         root.clear();
         network.clear();
 
@@ -49,12 +63,10 @@ int main(){
             string a, b;
             cin >> a >> b;
 
-            root.insert({a, a});
-            network.insert({a, 1});
-            root.insert({b, b});
-            network.insert({b, 1});
+            int idx_a = get_index(a);
+            int idx_b = get_index(b);
 
-            cout << combine(a, b) << "\n";
+            cout << combine(idx_a, idx_b) << "\n";
         }
     }
 
