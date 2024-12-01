@@ -7,7 +7,7 @@ using namespace std;
 int main(){
     FASTIO
 
-    vector<long long> dp(10'001, 0ll);
+    vector<int> dp(10'001, 0);
     dp[0] = 1;
 
     for(int i = 1; i <= 3; i++){
