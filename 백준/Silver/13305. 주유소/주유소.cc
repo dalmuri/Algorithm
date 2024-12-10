@@ -20,7 +20,7 @@ int main(){
     for(int i = 0; i < n - 1; i++){
         min_cost = min(min_cost, costs[i]);
 
-        answer += min_cost * roads[i];
+        answer += (long long)min_cost * roads[i];
     }
 
     cout << answer;
