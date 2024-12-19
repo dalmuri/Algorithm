@@ -6,6 +6,8 @@ using namespace std;
 
 const int inf = 101;
 int paper[10][10];
+bool filled[10][10];
+int colored_paper[] = {0, 5, 5, 5, 5, 5};
 
 bool get_next(int& row, int& col){
     col--;
@@ -18,7 +20,9 @@ bool get_next(int& row, int& col){
     return false;
 }
 
-bool can_fill(int r, int c, int size, array<array<bool, 10>, 10>& filled){
+bool can_fill(int r, int c, int size){
+    if(colored_paper[size] <= 0) return false;
+
     for(int i = r; i > r - size; i--){
         for(int j = c; j > c - size; j--){
             if(filled[i][j]) return false;
@@ -28,7 +32,7 @@ bool can_fill(int r, int c, int size, array<array<bool, 10>, 10>& filled){
     return true;
 }
 
-void fill_paper(int r, int c, int size, bool val, array<array<bool, 10>, 10>& filled){
+void fill_paper(int r, int c, int size, bool val){
     for(int i = r; i > r - size; i--){
         for(int j = c; j > c - size; j--){
             filled[i][j] = val;
@@ -36,7 +40,7 @@ void fill_paper(int r, int c, int size, bool val, array<array<bool, 10>, 10>& fi
     }
 }
 
-void dfs(int r, int c, int cnt, int& answer, array<int, 6>& colored_paper, array<array<bool, 10>, 10>& filled){
+void dfs(int r, int c, int cnt, int& answer){
     if(cnt >= answer) return;
 
     while(get_next(r, c)){
@@ -49,15 +53,14 @@ void dfs(int r, int c, int cnt, int& answer, array<int, 6>& colored_paper, array
     }
 
     for(int i = paper[r][c]; i > 0; i--){
-        if(colored_paper[i] <= 0) continue;
-        if(!can_fill(r, c, i, filled)) continue;
+        if(!can_fill(r, c, i)) continue;
 
-        fill_paper(r, c, i, true, filled);
+        fill_paper(r, c, i, true);
         colored_paper[i]--;
 
-        dfs(r, c, cnt + 1, answer, colored_paper, filled);
+        dfs(r, c, cnt + 1, answer);
 
-        fill_paper(r, c, i, false, filled);
+        fill_paper(r, c, i, false);
         colored_paper[i]++;
     }
 }
@@ -75,9 +78,7 @@ int main(){
     }
 
     int answer = inf;
-    array<array<bool, 10>, 10> filled = {0,};
-    array<int, 6> colored_paper = {0, 5, 5, 5, 5, 5};
-    dfs(9, 10, 0, answer, colored_paper, filled);
+    dfs(9, 10, 0, answer);
 
     cout << (answer < inf ? answer : -1);
 
