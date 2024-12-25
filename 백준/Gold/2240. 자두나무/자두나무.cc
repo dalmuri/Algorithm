@@ -22,14 +22,10 @@ int main(){
 
         for(int j = 0; j < 2; j++){
             for(int k = 0; k <= w; k++){
-                if(fruit == j){
-                    if(k > 0) dp[i][j][k] = max(dp[i - 1][j][k], dp[i - 1][(j + 1) % 2][k - 1]) + 1;
-                    else dp[i][j][k] = dp[i - 1][j][k] + 1;
-                }
-                else{
-                    if(k > 0) dp[i][j][k] = max(dp[i - 1][j][k], dp[i - 1][(j + 1) % 2][k - 1]);
-                    else dp[i][j][k] = dp[i - 1][j][k];
-                }
+                if(k > 0) dp[i][j][k] = max(dp[i - 1][j][k], dp[i - 1][(j + 1) % 2][k - 1]);
+                else dp[i][j][k] = dp[i - 1][j][k];
+                
+                if(fruit == j) dp[i][j][k]++;
             }
         }
     }
