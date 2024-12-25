@@ -12,23 +12,21 @@ int main(){
     int n;
     cin >> n;
 
-    vector<int> life(n + 1);
+    vector<int> life(n);
     for(int i = 0; i < n; i++) cin >> life[i];
 
-    vector<int> happy(n + 1);
+    vector<int> happy(n);
     for(int i = 0; i < n; i++) cin >> happy[i];
 
-    vector<vector<int>> dp(n + 1, vector<int>(101, -inf));
-    dp[0][100] = 0;
+    vector<int> dp(101, 0);
 
     for(int i = 0; i < n; i++){
         for(int j = 0; j <= 100; j++){
-            dp[i + 1][j] = max(dp[i + 1][j], dp[i][j]);
-            if(j - life[i] > 0) dp[i + 1][j - life[i]] = max(dp[i + 1][j - life[i]], dp[i][j] + happy[i]);
+            if(j - life[i] > 0) dp[j - life[i]] = max(dp[j - life[i]], dp[j] + happy[i]);
         }
     }
 
-    cout << *max_element(dp[n].begin() + 1, dp[n].end());
+    cout << *max_element(dp.begin() + 1, dp.end());
 
     return 0;
 }
