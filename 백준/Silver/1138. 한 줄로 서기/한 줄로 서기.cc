@@ -13,17 +13,8 @@ int main(){
     vector<int> people(n + 1);
     for(int i = 1; i <= n; i++) cin >> people[i];
 
-    vector<int> answer(n, 0);
-    for(int i = 1; i <= n; i++){
-        int cnt = people[i];
-        for(int j = 0; j <= cnt; j++){
-            if(answer[j] > 0) cnt++;
-            if(j == cnt){
-                answer[j] = i;
-                break;
-            }
-        }
-    }
+    vector<int> answer;
+    for(int i = n; i > 0; i--) answer.insert(answer.begin() + people[i], i);
 
     for(int i = 0; i < n; i++) cout << answer[i] << " ";
 
