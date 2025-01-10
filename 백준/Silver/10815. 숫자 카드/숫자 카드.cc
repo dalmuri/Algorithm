@@ -10,7 +10,7 @@ int main(){
     int n, m;
     cin >> n;
 
-    set<int> cards;
+    unordered_set<int> cards;
     for(int i = 0; i < n; i++){
         int card;
         cin >> card;
