@@ -12,34 +12,20 @@ int main(){
     int n;
     cin >> n;
 
-    vector<int> dp(abs(n) + 1, 0);
-
-    if(n > 0){
-        dp[1] = 1;
-
-        for(int i = 2; i <= n; i++) dp[i] = (dp[i - 1] + dp[i - 2]) % mod;
+    int sign = 1;
+    if(n < 0){
+        n *= -1;
+        if(!(n & 1)) sign = -1;
     }
-    else if(n < 0){
-        dp[1] = 1;
-
-        for(int i = 2; i <= -n; i++){
-            dp[i] = dp[i - 2] - dp[i - 1];
-            
-            if(dp[i] >= 0) dp[i] %= mod;
-            else dp[i] = (-dp[i]) % mod * (-1);
-        }
+    else if(n == 0){
+        sign = 0;
     }
 
-    int answer = dp[abs(n)];
-    if(answer > 0){
-        cout << "1\n" << answer;
-    }
-    else if(answer < 0){
-        cout << "-1\n" << -answer;
-    }
-    else{
-        cout << "0\n" << answer;
-    }
+    vector<int> dp(n + 2, 0);
+    dp[1] = 1;
+    for(int i = 2; i <= n; i++) dp[i] = (dp[i - 1] + dp[i - 2]) % mod;
+
+    cout << sign << "\n" << dp[n];
 
     return 0;
 }
