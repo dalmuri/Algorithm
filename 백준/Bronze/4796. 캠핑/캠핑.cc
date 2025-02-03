@@ -13,12 +13,8 @@ int main(){
 
         if(l == 0 && p == 0 && v == 0) break;
 
-        int answer = 0;
-        while(v > 0){
-            answer += min(l, v);
-            v -= p;
-        }
-
+        int answer = v / p * l + min(l, v % p);
+        
         cout << "Case " << i << ": " << answer << "\n";
     }
 
