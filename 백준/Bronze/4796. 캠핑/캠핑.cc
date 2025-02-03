@@ -15,7 +15,7 @@ int main(){
 
         int answer = 0;
         while(v > 0){
-            answer += min({l, p, v});
+            answer += min(l, v);
             v -= p;
         }
 
