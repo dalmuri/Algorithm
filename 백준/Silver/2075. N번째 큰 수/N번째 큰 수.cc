@@ -4,14 +4,6 @@
 
 using namespace std;
 
-struct number{
-    int num, row, col;
-
-    bool operator<(const number& other) const{
-        return num < other.num;
-    }
-};
-
 int main(){
     FASTIO
 
@@ -25,15 +17,15 @@ int main(){
         }
     }
 
-    priority_queue<number> pq;
+    priority_queue<tuple<int, int, int>> pq;
     for(int j = 0; j < n; j++) pq.push({table[n - 1][j], n - 1, j});
 
     int cnt = n;
     int num;
     while(cnt--){
-        num = pq.top().num;
-        int r = pq.top().row;
-        int c = pq.top().col;
+        num = get<0>(pq.top());
+        int r = get<1>(pq.top());
+        int c = get<2>(pq.top());
         pq.pop();
 
         if(r > 0) pq.push({table[r - 1][c], r - 1, c});
