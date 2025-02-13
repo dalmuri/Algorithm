@@ -21,17 +21,16 @@ int main(){
     for(int j = 0; j < n; j++) pq.push({table[n - 1][j], n - 1, j});
 
     int cnt = n;
-    int num;
+    int answer;
     while(cnt--){
-        num = get<0>(pq.top());
-        int r = get<1>(pq.top());
-        int c = get<2>(pq.top());
+        auto [num, r, c] = pq.top();
         pq.pop();
 
         if(r > 0) pq.push({table[r - 1][c], r - 1, c});
+        answer = num;
     }
 
-    cout << num;
+    cout << answer;
 
     return 0;
 }
