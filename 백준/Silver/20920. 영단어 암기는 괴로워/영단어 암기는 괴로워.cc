@@ -10,13 +10,12 @@ int main(){
     int n, m;
     cin >> n >> m;
 
-    map<string, int> dictionary;
+    unordered_map<string, int> dictionary;
     for(int i = 0; i < n; i++){
         string str;
         cin >> str;
 
-        if(str.size() < m) continue;
-        dictionary[str]++;
+        if(str.size() >= m) dictionary[str]++;
     }
 
     using psi = pair<string, int>;
