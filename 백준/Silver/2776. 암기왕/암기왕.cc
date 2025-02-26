@@ -13,7 +13,7 @@ int main(){
         int n, m;
         cin >> n;
         
-        set<int> note1;
+        unordered_set<int> note1;
         for(int i = 0; i < n; i++){
             int num;
             cin >> num;
