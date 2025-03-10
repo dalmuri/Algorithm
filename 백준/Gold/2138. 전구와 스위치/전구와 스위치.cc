@@ -21,9 +21,8 @@ int calc(vector<bool> bulbs, vector<bool>& result){
         }
     }
 
-    if(bulbs[n - 1] != result[n - 1]) return -1;
+    if(bulbs[n - 1] != result[n - 1]) return -2;
     return cnt;
-
 }
 
 int main(){
@@ -50,12 +49,12 @@ int main(){
     int answer1 = calc(bulbs, result);
 
     push_switch(0, bulbs);
-    int answer2 = calc(bulbs, result);
+    int answer2 = calc(bulbs, result) + 1;
 
-    if(answer1 == -1 && answer2 == -1) cout << "-1";
-    else if(answer1 == -1) cout << answer2 + 1;
-    else if(answer2 == -1) cout << answer1;
-    else cout << min(answer1, answer2 + 1);
+    if(answer1 < 0 && answer2 < 0) cout << "-1";
+    else if(answer1 < 0) cout << answer2;
+    else if(answer2 < 0) cout << answer1;
+    else cout << min(answer1, answer2);
 
     return 0;
 }
