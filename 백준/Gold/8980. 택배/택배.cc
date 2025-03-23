@@ -11,11 +11,6 @@ struct delivery{
         if(to != other.to) return to < other.to;
         return from < other.from;
     }
-
-    bool operator>(const delivery& other) const {
-        if(to != other.to) return to > other.to;
-        return from > other.from;
-    }
 };
 
 int main(){
@@ -31,21 +26,14 @@ int main(){
 
     sort(deliveries.begin(), deliveries.end());
 
-    int box = 0, answer = 0;
-    priority_queue<delivery, vector<delivery>, greater<delivery>> pq;
+    int answer = 0;
+    vector<int> capacity(n + 1, c);
+    for(auto [from, to, box] : deliveries){
+        int min_cap = c;
+        for(int i = from; i < to; i++) min_cap = min({min_cap, capacity[i], box});
+        for(int i = from; i < to; i++) capacity[i] -= min_cap;
 
-    for(int i = 0; i < m; i++){
-        while(!pq.empty() && pq.top().to <= deliveries[i].from){
-            box -= pq.top().box;
-            pq.pop();
-        }
-
-        int plus = min(c - box, deliveries[i].box);
-        if(plus > 0){
-            pq.push({deliveries[i].from, deliveries[i].to, plus});
-            box += plus;
-            answer += plus;
-        }
+        answer += min_cap;
     }
 
     cout << answer;
