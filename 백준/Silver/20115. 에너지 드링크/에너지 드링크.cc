@@ -10,14 +10,18 @@ int main(){
     int n;
     cin >> n;
 
-    vector<int> drinks(n);
-    for(int i = 0; i < n; ++i) cin >> drinks[i];
+    double answer = 0.0;
+    int max_drink = 0;
+    for(int i = 0; i < n; ++i){
+        int drink;
+        cin >> drink;
 
-    iter_swap(max_element(drinks.begin(), drinks.end()), drinks.begin());
+        answer += (double)drink / 2.0;
+        max_drink = max(max_drink, drink);
+    }
 
-    cout << accumulate(drinks.begin() + 1, drinks.end(), (double)drinks.front(), [](double acc, int e){
-        return acc + (double)e / 2.0;
-    });
+    answer += (double)max_drink / 2.0;
+    cout << answer;
 
     return 0;
 }
