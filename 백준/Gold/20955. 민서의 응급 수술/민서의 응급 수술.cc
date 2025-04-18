@@ -4,18 +4,23 @@
 
 using namespace std;
 
-int cnt_disconnect(int node, int parent, vector<vector<int>>& neurons, vector<bool>& visited){
-    int cnt = 0;
-    visited[node] = true;
+int root[100'001];
 
-    for(int child : neurons[node]){
-        if(child == parent) continue;
+int find_root(int node){
+    if(root[node] == 0) return node;
+    return root[node] = find_root(root[node]);
+}
 
-        if(visited[child]) ++cnt;
-        else cnt += cnt_disconnect(child, node, neurons, visited);
-    }
+int union_root(int a, int b){
+    int root_a = find_root(a);
+    int root_b = find_root(b);
 
-    return cnt;
+    if(root_a == root_b) return 1;
+
+    if(root_a < root_b) swap(root_a, root_b);
+    root[root_a] = root_b;
+
+    return 0;
 }
 
 int main(){
@@ -24,26 +29,19 @@ int main(){
     int n, m;
     cin >> n >> m;
 
-    vector<vector<int>> neurons(n + 1);
+    int answer = -1;
     for(int i = 0; i < m; ++i){
         int u, v;
         cin >> u >> v;
 
-        neurons[u].push_back(v);
-        neurons[v].push_back(u);
+        answer += union_root(u, v);
     }
 
-    vector<bool> visited(n + 1);
-    int to_disconnect = 0;
-    int to_connect = -1;
     for(int i = 1; i <= n; ++i){
-        if(visited[i]) continue;
-
-        ++to_connect;
-        to_disconnect += cnt_disconnect(i, -1, neurons, visited) / 2;
+        if(find_root(i) == i) ++answer;
     }
 
-    cout << to_disconnect + to_connect;
+    cout << answer;
 
     return 0;
 }
