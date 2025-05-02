@@ -12,11 +12,22 @@ int main(){
         cin >> word1 >> word2;
         if(word1 == "END" && word2 == "END") break;
 
-        sort(word1.begin(), word1.end());
-        sort(word2.begin(), word2.end());
-
         cout << "Case " << t;
-        if(word1 == word2) cout << ": same\n";
+        if(word1.size() != word2.size()){
+            cout << ": different\n";
+            continue;
+        }
+
+        vector<int> alphabets(26, 0);
+        int check = 0;
+        for(int i = 0; i < word1.size(); ++i){
+            if(++alphabets[word1[i] - 'a'] == 1) ++check;
+        }
+        for(int i = 0; i < word2.size(); ++i){
+            if(--alphabets[word2[i] - 'a'] == 0) --check;
+        }
+
+        if(check == 0) cout << ": same\n";
         else cout << ": different\n";
     }
 
