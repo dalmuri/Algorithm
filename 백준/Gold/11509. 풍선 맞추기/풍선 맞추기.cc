@@ -10,17 +10,17 @@ int main(){
     int n;
     cin >> n;
 
-    vector<int> balloons(n);
-    for(int i = 0; i < n; ++i) cin >> balloons[i];
-
     unordered_map<int, int> arrows;
     int answer = 0;
     for(int i = 0; i < n; ++i){
-        auto iter = arrows.find(balloons[i]);
+        int balloon;
+        cin >> balloon;
+
+        auto iter = arrows.find(balloon);
         if(iter != arrows.end() && iter->second > 0) --iter->second;
         else ++answer;
 
-        if(balloons[i] > 1) ++arrows[balloons[i] - 1];
+        if(balloon > 1) ++arrows[balloon - 1];
     }
 
     cout << answer;
