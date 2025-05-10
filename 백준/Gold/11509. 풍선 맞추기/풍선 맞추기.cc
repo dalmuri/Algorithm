@@ -4,20 +4,20 @@
 
 using namespace std;
 
+int arrows[1'000'001];
+
 int main(){
     FASTIO
 
     int n;
     cin >> n;
 
-    unordered_map<int, int> arrows;
     int answer = 0;
     for(int i = 0; i < n; ++i){
         int balloon;
         cin >> balloon;
 
-        auto iter = arrows.find(balloon);
-        if(iter != arrows.end() && iter->second > 0) --iter->second;
+        if(arrows[balloon] > 0) --arrows[balloon];
         else ++answer;
 
         if(balloon > 1) ++arrows[balloon - 1];
