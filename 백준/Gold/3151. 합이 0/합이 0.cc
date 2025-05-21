@@ -29,12 +29,9 @@ int main(){
                 }
 
                 int next_left = upper_bound(students.begin() + left + 1, students.begin() + right, students[left]) - students.begin();
-                int left_cnt = next_left - left;
-
                 int next_right = lower_bound(students.begin() + left + 1, students.begin() + right, students[right]) - students.begin() - 1;
-                int right_cnt = right - next_right;
 
-                answer += left_cnt * right_cnt;
+                answer += (next_left - left) * (right - next_right);
                 left = next_left;
                 right = next_right;
             }
