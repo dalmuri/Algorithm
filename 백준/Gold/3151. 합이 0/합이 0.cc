@@ -17,11 +17,26 @@ int main(){
 
     long long answer = 0ll;
     for(int i = 0; i + 2 < n; ++i){
-        for(int j = i + 1; j + 1 < n; ++j){
-            int to_find = -students[i] - students[j];
-            auto iter = lower_bound(students.begin() + j + 1, students.end(), to_find);
-            if(*iter == to_find){
-                answer += upper_bound(students.begin() + j + 1, students.end(), to_find) - iter;
+        int left = i + 1, right = n - 1;
+        while(left < right){
+            int sum = students[i] + students[left] + students[right];
+            if(sum < 0) left++;
+            else if(sum > 0) right--;
+            else{
+                if(students[left] == students[right]){
+                    answer += (right - left + 1) * (right - left) / 2; // nC2 = n * (n - 1) / 2
+                    break;
+                }
+
+                int next_left = upper_bound(students.begin() + left + 1, students.begin() + right, students[left]) - students.begin();
+                int left_cnt = next_left - left;
+
+                int next_right = lower_bound(students.begin() + left + 1, students.begin() + right, students[right]) - students.begin() - 1;
+                int right_cnt = right - next_right;
+
+                answer += left_cnt * right_cnt;
+                left = next_left;
+                right = next_right;
             }
         }
     }
