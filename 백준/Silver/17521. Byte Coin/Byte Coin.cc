@@ -11,22 +11,21 @@ int main(){
     long long w;
     cin >> n >> w;
 
-    vector<int> prices(n);
-    for(int i = 0; i < n; ++i) cin >> prices[i];
-
     long long coin = 0ll;
-    for(int i = 0; i + 1 < n; ++i){
-        if(prices[i] <= prices[i + 1]){
-            coin += w / prices[i];
-            w %= prices[i];
+    int prev, next;
+    cin >> prev;
+    for(int i = 1; i < n; ++i, prev = next){
+        cin >> next;
+        if(prev <= next){
+            coin += w / prev;
+            w %= prev;
         }
         else{
-            w += coin * prices[i];
+            w += coin * prev;
             coin = 0ll;
         }
     }
-
-    w += coin * prices.back();
+    w += coin * next;
 
     cout << w;
 
