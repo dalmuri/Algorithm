@@ -11,15 +11,15 @@ int main(){
     cin >> n;
 
     vector<pair<int, int>> stations(n);
-    for(int i = 0; i < n; ++i) cin >> stations[i].second >> stations[i].first;
+    for(int i = 0; i < n; ++i) cin >> stations[i].first >> stations[i].second;
     cin >> l >> p;
 
-    sort(stations.begin(), stations.end(), [](pair<int, int> a, pair<int, int> b){ return a.second < b.second; });
+    sort(stations.begin(), stations.end());
 
     int now = p, answer = 0, idx = 0;
-    priority_queue<pair<int, int>> pq;
+    priority_queue<int> pq;
     while(now < l){
-        for(; idx < n && stations[idx].second <= now; ++idx) pq.push(stations[idx]);
+        for(; idx < n && stations[idx].first <= now; ++idx) pq.push(stations[idx].second);
 
         if(pq.empty()){
             answer = -1;
@@ -27,7 +27,7 @@ int main(){
         }
 
         answer++;
-        now += pq.top().first;
+        now += pq.top();
         pq.pop();
     }
 
