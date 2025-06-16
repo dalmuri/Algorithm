@@ -13,19 +13,16 @@ int main(){
         int n;
         cin >> n;
 
-        deque<char> dq;
+        string answer(n * 2, 'Z');
+        int start = n, end = n;
         for(int i = 0; i < n; ++i){
-            string card;
+            char card;
             cin >> card;
-            if(card[0] <= dq.front()) dq.push_front(card[0]);
-            else dq.push_back(card[0]);
-        }
 
-        while(!dq.empty()){
-            cout << dq.front();
-            dq.pop_front();
+            if(card <= answer[start]) answer[--start] = card;
+            else answer[end++] = card;
         }
-        cout << "\n";
+        cout << answer.substr(start, end - start) << "\n";
     }
 
     return 0;
