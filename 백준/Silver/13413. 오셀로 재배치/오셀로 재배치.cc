@@ -18,10 +18,8 @@ int main(){
 
         int cnt_to_B = 0, cnt_to_W = 0;
         for(int i = 0; i < n; ++i){
-            if(start[i] != end[i]){
-                if(start[i] == 'W') cnt_to_B++;
-                else cnt_to_W++;
-            }
+            if(start[i] == 'W' && end[i] == 'B') cnt_to_B++;
+            else if(start[i] == 'B' && end[i] == 'W') cnt_to_W++;
         }
 
         cout << max(cnt_to_B, cnt_to_W) << "\n";
