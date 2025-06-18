@@ -13,16 +13,13 @@ int main(){
         int n;
         cin >> n;
 
-        vector<char> initial(n);
-        for(int i = 0; i < n; ++i) cin >> initial[i];
+        string start, end;
+        cin >> start >> end;
 
         int cnt_to_B = 0, cnt_to_W = 0;
         for(int i = 0; i < n; ++i){
-            char obj;
-            cin >> obj;
-
-            if(initial[i] != obj){
-                if(initial[i] == 'W') cnt_to_B++;
+            if(start[i] != end[i]){
+                if(start[i] == 'W') cnt_to_B++;
                 else cnt_to_W++;
             }
         }
