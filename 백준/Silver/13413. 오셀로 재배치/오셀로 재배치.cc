@@ -11,18 +11,18 @@ int main(){
     cin >> t;
     while(t--){
         int n;
-        cin >> n;
-
         string start, end;
-        cin >> start >> end;
+        cin >> n >> start >> end;
 
-        int cnt_to_B = 0, cnt_to_W = 0;
+        int diff = 0, startB = 0, endB = 0;
         for(int i = 0; i < n; ++i){
-            if(start[i] == 'W' && end[i] == 'B') cnt_to_B++;
-            else if(start[i] == 'B' && end[i] == 'W') cnt_to_W++;
+            diff += start[i] != end[i];
+            startB += start[i] == 'B';
+            endB += end[i] == 'B';
         }
-
-        cout << max(cnt_to_B, cnt_to_W) << "\n";
+        
+        int diffB = abs(endB - startB);
+        cout << (diff - diffB) / 2 + diffB << "\n";
     }
 
     return 0;
