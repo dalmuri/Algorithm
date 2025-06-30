@@ -19,24 +19,29 @@ int main(){
 
     priority_queue<pii, vector<pii>, greater<pii>> pq_using; // (종료 시각, 자리 번호)
     priority_queue<int, vector<int>, greater<int>> pq_empty; // 빈 자리 번호
-    map<int, int> computers; // (자리 번호, 사용한 사람 수)
+    vector<int> cnt(n, 0);
+    int answer = 0;
     for(int i = 0, num; i < n; ++i){
         while(!pq_using.empty() && pq_using.top().first < times[i].first){
             pq_empty.push(pq_using.top().second);
             pq_using.pop();
         }
-        if(pq_empty.empty()) num = computers.size();
+
+        if(pq_empty.empty()){
+            num = pq_using.size();
+            answer++;
+        }
         else{
             num = pq_empty.top();
             pq_empty.pop();
         }
 
-        computers[num]++;
+        cnt[num]++;
         pq_using.push({times[i].second, num});
     }
 
-    cout << computers.size() << "\n";
-    for(auto iter = computers.begin(); iter != computers.end(); ++iter) cout << iter->second << " ";
+    cout << answer << "\n";
+    for(int i = 0; i < answer; ++i) cout << cnt[i] << " ";
 
     return 0;
 }
