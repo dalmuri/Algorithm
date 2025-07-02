@@ -17,13 +17,18 @@ int main(){
 
         sort(lengths.begin(), lengths.end());
 
-        int max_diff = -1, l1, l2;
-        for(int i = 0; i < n; ++i){
-            auto other = lower_bound(lengths.begin() + i + 1, lengths.end(), x - lengths[i]);
-            if(other != lengths.end() && lengths[i] + *other == x && *other - lengths[i] > max_diff){
-                max_diff = *other - lengths[i];
-                l1 = lengths[i];
-                l2 = *other;
+        int max_diff = -1, l1, l2, left = 0, right = n - 1;
+        while(left < right){
+            if(lengths[left] + lengths[right] < x) left++;
+            else if(lengths[left] + lengths[right] > x) right--;
+            else{
+                if(lengths[right] - lengths[left] > max_diff){
+                    max_diff = lengths[right] - lengths[left];
+                    l1 = lengths[left];
+                    l2 = lengths[right];
+                }
+                left++;
+                right--;
             }
         }
 
