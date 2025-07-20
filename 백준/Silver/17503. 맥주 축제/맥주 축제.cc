@@ -21,7 +21,7 @@ int main(){
     });
 
     priority_queue<int, vector<int>, greater<int>> pq;
-    long long sum = 0ll;
+    unsigned int sum = 0;
     int answer = -1;
     for(int i = 0; i < k; ++i){
         if(pq.size() >= n){
