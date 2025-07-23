@@ -8,7 +8,6 @@ int main(){
     FASTIO
 
     using pii = pair<int, int>;
-    const int inf = 2'147'483'647;
 
     int n, m;
     cin >> n >> m;
@@ -22,21 +21,12 @@ int main(){
     });
 
     int answer = -1;
-    pii last = {0, 0}, now = {0, 0};
-    for(int i = 0, now_cnt = 0; i < n; ++i){
-        if(now.first < meats[i].first){
-            last = {meats[i].first, last.second + now.second};
-            now = meats[i];
-            now_cnt = 1;
+    for(int i = 0, now_cnt = 0, weight = 0; i < n; ++i){
+        weight += meats[i].second;
+        if(i == 0 || meats[i - 1].first == meats[i].first) now_cnt++;
+        else now_cnt = 1;
 
-            if(last.second + meats[i].second >= m && (answer == -1 || answer > meats[i].first)) answer = meats[i].first;
-        }
-        else{
-            now.second += meats[i].second;
-            now_cnt++;
-
-            if(last.second + now.second >= m && (answer == -1 || answer > now.first * now_cnt)) answer = now.first * now_cnt;
-        }
+        if(weight >= m && (answer == -1 || answer > meats[i].first * now_cnt)) answer = meats[i].first * now_cnt;
     }
 
     cout << answer;
