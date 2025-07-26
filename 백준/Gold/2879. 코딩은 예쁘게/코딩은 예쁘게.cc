@@ -21,13 +21,12 @@ int main(){
     for(int i = 0; i < n; ++i){
         if(count[i] == 0) continue;
 
-        int tab = -count[i];
         answer += abs(count[i]);
-        for(int j = i + 1; j < n; ++j){
+        for(int j = i + 1, tab = count[i]; j < n; ++j){
             if(count[j] == 0 || (count[i] < 0) != (count[j] < 0)) break;
 
-            if(abs(tab) > abs(count[j])) tab = -count[j];
-            count[j] += tab;
+            if(abs(tab) > abs(count[j])) tab = count[j];
+            count[j] -= tab;
         }
     }
 
