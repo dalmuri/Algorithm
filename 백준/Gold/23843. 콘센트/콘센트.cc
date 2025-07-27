@@ -26,12 +26,9 @@ int main(){
         pq.push(now + times[i]);
     }
 
-    while(!pq.empty()){
-        now = max(now, pq.top());
-        pq.pop();
-    }
+    while(pq.size() > 1) pq.pop();
 
-    cout << now;
+    cout << max(now, pq.top());
 
     return 0;
 }
