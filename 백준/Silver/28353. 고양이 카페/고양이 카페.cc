@@ -15,19 +15,13 @@ int main(){
 
     sort(weights.begin(), weights.end());
 
-    int answer = 0, l = 0, r = weights.size() - 1;
+    int l = 0, r = n - 1;
     while(l < r){
-        if(weights[l] + weights[r] > k){
-            r--;
-        }
-        else{
-            answer++;
-            l++;
-            r--;
-        }
+        if(weights[l] + weights[r] <= k) l++;
+        r--;
     }
 
-    cout << answer;
+    cout << l;
 
     return 0;
 }
