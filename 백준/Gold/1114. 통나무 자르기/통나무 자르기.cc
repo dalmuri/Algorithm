@@ -4,50 +4,46 @@
 
 using namespace std;
 
-int l, c;
+int l, k, c;
 
-bool can_cut(int len, set<int>& cut_pos, int& first_pos){
-    int last_cut_pos = l, prev_pos = l, cnt = 0;
-    for(auto iter = cut_pos.rbegin(); iter != cut_pos.rend(); prev_pos = *iter, ++iter){
-        if(last_cut_pos - *iter > len){
-            if(last_cut_pos == prev_pos) return false;
-            if(last_cut_pos - prev_pos > len) return false;
-            last_cut_pos = prev_pos;
-            if(++cnt > c) return false;
+int can_cut(int len, vector<int>& cut_pos){
+    int last_cut = l, cnt = 0;
+    for(int i = k - 1; i >= 0; --i){
+        if(last_cut - cut_pos[i] > len){
+            if(cut_pos[i + 1] - cut_pos[i] > len) return 0;
+            if(++cnt > c) return 0;
+            last_cut = cut_pos[i + 1];
         }
     }
-    if(last_cut_pos > len){
-        if(last_cut_pos == prev_pos) return false;
-        if(last_cut_pos - prev_pos > len) return false;
-        if(prev_pos > len) return false;
-        last_cut_pos = prev_pos;
-        if(++cnt > c) return false;
+    if(last_cut > len){
+        if(last_cut - cut_pos[0] > len) return 0;
+        if(cut_pos[0] > len) return 0;
+        if(++cnt > c) return 0;
+        last_cut = cut_pos[0];
     }
-    
-    if(cnt < c) first_pos = *cut_pos.begin();
-    else first_pos = last_cut_pos;
-    return true;
+
+    if(cnt < c) return cut_pos[0];
+    else return last_cut;
 }
 
 int main(){
     FASTIO
 
-    int k;
     cin >> l >> k >> c;
 
-    set<int> cut_pos;
-    for(int i = 0, pos; i < k; ++i){
-        cin >> pos;
-        cut_pos.insert(pos);
-    }
+    vector<int> cut_pos(k + 1, l);
+    for(int i = 0, pos; i < k; ++i) cin >> cut_pos[i];
 
-    int left = 0, right = l, max_len = right, first_pos = 0, temp;
+    sort(cut_pos.begin(), cut_pos.end());
+
+    int left = 0, right = l, max_len = right, first_pos = 0;
     while(left <= right){
         int mid = (left + right) / 2;
 
-        if(can_cut(mid, cut_pos, temp)){
+        int result = can_cut(mid, cut_pos);
+        if(result){
             max_len = mid;
-            first_pos = temp;
+            first_pos = result;
             right = mid - 1;
         }
         else{
