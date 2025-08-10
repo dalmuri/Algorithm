@@ -7,22 +7,19 @@ using namespace std;
 int main(){
     FASTIO
 
-    int n;
-    cin >> n;
+    int t;
+    cin >> t;
 
-    string a, b;
-    for(int i = 0; i < n; ++i){
-        cin >> a >> b;
+    while(t--){
+        string n, m;
+        cin >> n >> m;
 
-        int to_zero = 0, to_one = 0;
-        for(int j = 0; j < a.size(); ++j){
-            if(a[j] != b[j]){
-                if(b[j] == '0') to_zero++;
-                else to_one++;
-            }
+        vector<int> diff(2, 0);
+        for(int j = 0; j < n.size(); ++j){
+            if(n[j] != m[j]) diff[n[j] - '0']++;
         }
 
-        cout << max(to_zero, to_one) << "\n";
+        cout << *max_element(diff.begin(), diff.end()) << "\n";
     }
 
     return 0;
