@@ -7,7 +7,7 @@ using namespace std;
 int n;
 vector<pair<int, int>> around = {{-1, 0}, {-1, 1}, {0, 1}, {1, 1}, {1, 0}, {1, -1}, {0, -1}, {-1, -1}};
 
-bool check(int r, int c, vector<vector<char>>& board){
+void check(int r, int c, vector<vector<char>>& board){
     vector<pair<int, int>> mines;
     int cnt = board[r][c] - '0';
     for(int i = 0; i < around.size(); ++i){
@@ -21,14 +21,10 @@ bool check(int r, int c, vector<vector<char>>& board){
 
     if(cnt == 0 && mines.size() > 0){
         for(auto [row, col] : mines) board[row][col] = 'X';
-        return true;
     }
     else if(mines.size() == cnt && cnt > 0){
         for(auto [row, col] : mines) board[row][col] = '!';
-        return true;
     }
-
-    return false;
 }
 
 int main(){
@@ -46,19 +42,10 @@ int main(){
         }
     }
     
-    bool flag = true;
-    while(flag && q.size() > 0){
-        flag = false;
-
-        int size = q.size();
-        while(size--){
-            auto [r, c] = q.front();
-            q.pop();
-            if(check(r, c, board)){
-                flag = true;
-                q.push({r, c});
-            }
-        }
+    while(q.size() > 0){
+        auto [r, c] = q.front();
+        q.pop();
+        check(r, c, board);
     }
 
     int answer = 0;
