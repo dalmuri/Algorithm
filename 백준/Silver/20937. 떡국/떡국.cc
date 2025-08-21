@@ -9,16 +9,15 @@ int bowls[50'001];
 int main(){
     FASTIO
 
-    int n;
+    int n, bowl;
     cin >> n;
 
-    int answer = 0;
-    for(int i = 0, bowl; i < n; ++i){
+    while(n--){
         cin >> bowl;
-        answer = max(answer, ++bowls[bowl]);
+        bowls[bowl]++;
     }
 
-    cout << answer;
+    cout << *max_element(bowls, bowls + 50'001);
 
     return 0;
 }
