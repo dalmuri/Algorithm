@@ -11,11 +11,11 @@ int main(){
     int n, k;
     cin >> l >> n >> k;
 
-    vector<int> lamps(n);
+    vector<long long> lamps(n);
     for(int i = 0; i < n; ++i) cin >> lamps[i];
 
-    int light = 0;
-    map<int, bool> visited;
+    long long light = 0ll;
+    map<long long, bool> visited;
     for(int cnt = 0; cnt < k; ++light){
         for(int i = 0; i < n && cnt < k; ++i){
             if(lamps[i] - light >= 0 && !visited[lamps[i] - light]){
