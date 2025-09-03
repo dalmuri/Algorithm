@@ -7,13 +7,17 @@ using namespace std;
 int main(){
     FASTIO
 
-    int n;
+    int n, marble, mini = 1'000'000'001, maxi = 0;
     cin >> n;
 
-    vector<int> marbles(n);
-    for(int i = 0; i < n; ++i) cin >> marbles[i];
+    while(n--){
+        cin >> marble;
 
-    cout << ((*max_element(marbles.begin(), marbles.end()) - *min_element(marbles.begin(), marbles.end())) << 1);
+        mini = min(mini, marble);
+        maxi = max(maxi, marble);
+    } 
+
+    cout << ((maxi - mini) << 1);
 
     return 0;
 }
