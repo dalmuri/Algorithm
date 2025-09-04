@@ -11,7 +11,7 @@ int main(){
     cin >> n;
 
     int answer = 0;
-    unordered_map<int, int> cnt;
+    vector<int> cnt(1001, 0);
     for(int i = 0, h; i < n; ++i){
         cin >> h;
 
