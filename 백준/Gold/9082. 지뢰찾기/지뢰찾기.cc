@@ -29,35 +29,23 @@ int main(){
         int n;
         cin >> n;
 
-        vector<string> mines(2);
-        cin >> mines[0] >> mines[1];
-
-        for(int i = 0; i < n; ++i){
-            if(mines[0][i] == '0') change_to(i, 'X', mines[1]);
-            else if(mines[0][i] == '3') change_to(i, '*', mines[1]);
-        }
-
-        for(int i = 0; i < n; ++i){
-            if(mines[0][i] == '1'){
-                if(count_obj(i, '*', mines[1]) == 1) change_to(i, 'X', mines[1]);
-                else if(count_obj(i, '*', mines[1]) + count_obj(i, '#', mines[1]) == 1) change_to(i, '*', mines[1]);
-                else{
-                    mines[1][i] = '*';
-                    change_to(i, 'X', mines[1]);
-                }
-            }
-            else if(mines[0][i] == '2'){
-                if(count_obj(i, '*', mines[1]) == 2) change_to(i, 'X', mines[1]);
-                else if(count_obj(i, '*', mines[1]) + count_obj(i, '#', mines[1]) == 2) change_to(i, '*', mines[1]);
-                else{
-                    mines[1][i] = '*';
-                    if(count_obj(1, '*', mines[1]) < 2) mines[1][i + 1] = '*';
-                }
-            }
-        }
+        string counts, mines;
+        cin >> counts >> mines;
 
         int answer = 0;
-        for(int i = 0; i < n; ++i) if(mines[1][i] == '*') answer++;
+        for(int i = 0; i < n; ++i){
+            bool flag1 = i == 0 || counts[i - 1] != '0';
+            bool flag2 = counts[i] != '0';
+            bool flag3 = i + 1 == n || counts[i + 1] != '0';
+
+            if(flag1 && flag2 && flag3){
+                if(i > 0) counts[i - 1] -= 1;
+                counts[i] -= 1;
+                if(i + 1 < n) counts[i + 1] -= 1;
+
+                answer++;
+            }
+        }
 
         cout << answer << "\n";
     }
